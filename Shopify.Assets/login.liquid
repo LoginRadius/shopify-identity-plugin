@@ -1,0 +1,127 @@
+{% layout settings.customer_layout %}
+
+
+<div class="grid">
+  <div id="lr-raas-message"></div>
+  
+  
+  <div id="no-email-container">
+    <h4> We couldn't find your email address, please fill in the form below </h4>
+    <div id="sociallogin-container"></div>
+    <a onclick="javascript: backtoLogin();" class="backto-login-btn" >Go back to login</a>
+  </div>
+  
+  
+  <div class="grid-item large--two-fifths">
+    
+	<div id="lr-raas-login">
+      <div id="interfacecontainerdiv" class="lr-sl-shaded-brick-frame"></div>
+
+      <script type="text/html" id="loginradiuscustom_tmpl">
+
+          <span data-label-short="<#= Name #>" data-label="Sign in with <#= Name #>" 
+              onclick="return $SL.util.openWindow('<#= Endpoint #>&is_access_token=true&callback=<#= window.location #>');" 
+              class="lr-provider-label lr-sl-shaded-brick-button lr-flat-<#= Name.toLowerCase()#>">
+
+              <span class="lr-sl-icon lr-sl-icon-<#= Name.toLowerCase()#>"></span>
+
+          </span>
+      </script>
+      <script type="text/javascript"> 
+          window.lr_raas_settings = window.lr_raas_settings || {}; 
+          window.lr_raas_settings.sociallogin = true;
+          window.lr_raas_settings.sociallogin_containerid = "sociallogin-container";
+          window.lr_raas_settings.sociallogin_interfaceid = "interfacecontainerdiv";
+      </script>
+  </div>
+  
+  </div>
+  
+<!-- Move it side by side -->
+  <div class="grid-item large--three-fifths lr-raas-form-frame" id="lr-social-traditional-login"> 
+
+      <div id="login-container"></div>
+      <script type="text/javascript"> 
+          window.lr_raas_settings = window.lr_raas_settings || {}; 
+          window.lr_raas_settings.login = true;
+          window.lr_raas_settings.login_containerid = "login-container";
+      </script>
+
+      <a href="javascript:void(0)" id="lr-raas-forgot-password">Forgot password?</a>
+      <a href="./register">Create Account</a>
+    
+  </div>
+    
+	<!-- move this to a grid -->
+    
+    <div id="lr-raas-forgotpassword" style="display:none;">
+    <div id="forgotpassword-container" ></div>
+<script type="text/javascript"> 
+	window.lr_raas_settings = window.lr_raas_settings || {}; 
+	window.lr_raas_settings.forgotpassword = true;
+	window.lr_raas_settings.forgotpassword_containerid = "forgotpassword-container";
+</script>
+      
+      <a href="javascript:void(0)" id="lr-raas-login-link">Login</a>
+      <a href="./register">Create Account</a>
+      
+    </div>
+    
+    
+    <div id="resetpassword-container"  style="display:none;"></div>
+<script type="text/javascript"> 
+	window.lr_raas_settings = window.lr_raas_settings || {}; 
+	window.lr_raas_settings.resetpassword = true;
+	window.lr_raas_settings.resetpassword_containerid = "resetpassword-container";
+</script>
+
+</div>
+
+<script type="text/javascript">
+
+  jQuery("#lr-raas-forgot-password").click(function(){
+  	$("#lr-raas-login").hide();
+	$("#lr-social-traditional-login").hide();
+    $("#lr-raas-forgotpassword").show();
+    
+  });
+  
+  
+    jQuery("#lr-raas-login-link").click(function(){
+  	$("#lr-raas-login").show();
+    $("#lr-social-traditional-login").show();
+    $("#lr-raas-forgotpassword").hide();
+    
+  });
+
+  
+ 
+  LoginRadiusSSO.init("sso-demo");
+  LoginRadiusSSO.login(window.location.href);
+  
+  var isLoginPage = true;
+</script>
+
+
+  {% if customer %}
+<script type="text/javascript">
+window.location.href = "/";
+  </script>
+  {% else %}
+  
+    <script type="text/javascript">
+  		$(document).ready(function () {
+          $("#no-email-container").hide();
+          console.log('hide');
+          if(!window.isLoginPage){
+          LoginRadiusSSO.init("sso-demo");
+             $SL.util.jsonpCall('//' + LoginRadiusSSO.appName + '.hub.loginradius.com/ssologin/login', function (data) {
+                if (data.isauthenticated) {
+                    window.location.href = '/account/login';
+                }
+            });
+          }
+          });
+        
+  </script> 
+  {% endif %}

@@ -1,0 +1,25 @@
+<div class="grid">
+
+  <div class="grid-item large--one-third push--large--one-third">
+    <span id="lr-raas-message"></span>
+
+    {% comment %}
+      This form must use 'create_customer'
+    {% endcomment %}
+    
+    <div id="registration-container"></div>
+    <script type="text/javascript"> 
+        window.lr_raas_settings = window.lr_raas_settings || {}; 
+        window.lr_raas_settings.registration = true;
+        window.lr_raas_settings.registration_containerid = "registration-container";
+    </script>
+
+  </div>
+
+</div>
+
+  {% if customer %}
+    <script type="text/javascript">
+    window.location.href = "/";
+    </script>
+  {% endif %}
