@@ -139,9 +139,8 @@ $SL.util.ready(function() {
 	
 	function exchangeMultipassToken(lrtoken, handle){
 
-		//var url = "https://dev-www.loginradius.com/shopifyauth.ashx?lr-token=" + lrtoken;
-        var url = "http://<your Web Location>/shopifyconnector/shopifyauth.ashx?lr-token=" + lrtoken;
 		
+        var url = "https://cloud-api.loginradius.com/sso/shopify/api/token?apikey="+raasoption.apikey+"&store="+{store}+"&access_token= " +lrtoken
 		if(getParameterByName("checkout_url")){
 			url = url + "&return_url="+getParameterByName("checkout_url");	
 		}
