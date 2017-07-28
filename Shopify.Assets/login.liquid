@@ -1,76 +1,77 @@
-{% layout settings.customer_layout %}
+{{ '//code.jquery.com/jquery-latest.min.js' | script_tag }}
 
 
-<div class="grid">
+
   <div id="lr-raas-message"></div>
-  
-  
+
+
   <div id="no-email-container">
-    <h4> We couldn't find your email address, please fill in the form below </h4>
     <div id="sociallogin-container"></div>
-    <a onclick="javascript: backtoLogin();" class="backto-login-btn" >Go back to login</a>
   </div>
-  
-  
+
+
   <div class="grid-item large--two-fifths">
-    
+
+
+
 	<div id="lr-raas-login">
       <div id="interfacecontainerdiv" class="lr-sl-shaded-brick-frame"></div>
 
       <script type="text/html" id="loginradiuscustom_tmpl">
 
-          <span data-label-short="<#= Name #>" data-label="Sign in with <#= Name #>" 
-              onclick="return $SL.util.openWindow('<#= Endpoint #>&is_access_token=true&callback=<#= window.location #>');" 
+          <span data-label-short="<#= Name #>" data-label="Sign in with <#= Name #>"
+            onclick="return LRObject.util.openWindow('<#= Endpoint  #>');"
               class="lr-provider-label lr-sl-shaded-brick-button lr-flat-<#= Name.toLowerCase()#>">
 
               <span class="lr-sl-icon lr-sl-icon-<#= Name.toLowerCase()#>"></span>
 
           </span>
       </script>
-      <script type="text/javascript"> 
-          window.lr_raas_settings = window.lr_raas_settings || {}; 
+      <script type="text/javascript">
+          window.lr_raas_settings = window.lr_raas_settings || {};
           window.lr_raas_settings.sociallogin = true;
           window.lr_raas_settings.sociallogin_containerid = "sociallogin-container";
           window.lr_raas_settings.sociallogin_interfaceid = "interfacecontainerdiv";
       </script>
   </div>
-  
+
   </div>
-  
+
 <!-- Move it side by side -->
-  <div class="grid-item large--three-fifths lr-raas-form-frame" id="lr-social-traditional-login"> 
+  <div class="grid-item large--three-fifths lr-raas-form-frame" id="lr-social-traditional-login">
 
       <div id="login-container"></div>
-      <script type="text/javascript"> 
-          window.lr_raas_settings = window.lr_raas_settings || {}; 
+      <script type="text/javascript">
+          window.lr_raas_settings = window.lr_raas_settings || {};
           window.lr_raas_settings.login = true;
           window.lr_raas_settings.login_containerid = "login-container";
+
       </script>
 
       <a href="javascript:void(0)" id="lr-raas-forgot-password">Forgot password?</a>
       <a href="./register">Create Account</a>
-    
+
   </div>
-    
+
 	<!-- move this to a grid -->
-    
+
     <div id="lr-raas-forgotpassword" style="display:none;">
     <div id="forgotpassword-container" ></div>
-<script type="text/javascript"> 
-	window.lr_raas_settings = window.lr_raas_settings || {}; 
+<script type="text/javascript">
+	window.lr_raas_settings = window.lr_raas_settings || {};
 	window.lr_raas_settings.forgotpassword = true;
 	window.lr_raas_settings.forgotpassword_containerid = "forgotpassword-container";
 </script>
-      
+
       <a href="javascript:void(0)" id="lr-raas-login-link">Login</a>
       <a href="./register">Create Account</a>
-      
+
     </div>
-    
-    
+
+
     <div id="resetpassword-container"  style="display:none;"></div>
-<script type="text/javascript"> 
-	window.lr_raas_settings = window.lr_raas_settings || {}; 
+<script type="text/javascript">
+	window.lr_raas_settings = window.lr_raas_settings || {};
 	window.lr_raas_settings.resetpassword = true;
 	window.lr_raas_settings.resetpassword_containerid = "resetpassword-container";
 </script>
@@ -83,22 +84,24 @@
   	$("#lr-raas-login").hide();
 	$("#lr-social-traditional-login").hide();
     $("#lr-raas-forgotpassword").show();
-    
+
   });
-  
-  
+
+
     jQuery("#lr-raas-login-link").click(function(){
   	$("#lr-raas-login").show();
     $("#lr-social-traditional-login").show();
     $("#lr-raas-forgotpassword").hide();
-    
+
   });
 
-  
- 
-  LoginRadiusSSO.init("sso-demo");
-  LoginRadiusSSO.login(window.location.href);
-  
+
+
+  // LoginRadiusSSO.init("sso-demo");
+
+
+  // LoginRadiusSSO.login(window.location.href);
+
   var isLoginPage = true;
 </script>
 
@@ -108,20 +111,117 @@
 window.location.href = "/";
   </script>
   {% else %}
-  
-    <script type="text/javascript">
+
+    <script>
   		$(document).ready(function () {
           $("#no-email-container").hide();
           console.log('hide');
           if(!window.isLoginPage){
-          LoginRadiusSSO.init("sso-demo");
-             $SL.util.jsonpCall('//' + LoginRadiusSSO.appName + '.hub.loginradius.com/ssologin/login', function (data) {
+          // LoginRadiusSSO.init("sso-demo");
+             LRObject.util.jsonpCall('//' + raasoption.appName + '.hub.loginradius.com/ssologin/login', function (data) {
                 if (data.isauthenticated) {
                     window.location.href = '/account/login';
                 }
             });
           }
           });
-        
-  </script> 
+
+  </script>
   {% endif %}
+
+
+
+ <!-- Loading screen -->
+<div class="lr_fade lr-loading-screen-overlay" id="loading-spinner">
+    <div class='load-dot'></div>
+    <div class='load-dot'></div>
+    <div class='load-dot'></div>
+    <div class='load-dot'></div>
+</div>
+
+<style>
+  .lr-loading-screen-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.9);
+    z-index: 10;
+    text-align: center;
+}
+
+    .lr-loading-screen-overlay:before {
+        content: "";
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .lr-loading-screen-overlay .load-dot {
+        display: inline-block;
+        vertical-align: middle;
+        width: 16px;
+        height: 16px;
+        margin: 0 5px;
+        background: #29d;
+        -webkit-animation: shapes 1s ease-in-out infinite;
+        animation: shapes 1s ease-in-out infinite;
+        -webkit-transform: translatey(-5px);
+        -ms-transform: translatey(-5px);
+        transform: translatey(-5px);
+        border-radius: 50%;
+    }
+
+        .lr-loading-screen-overlay .load-dot:nth-child(3) {
+            -webkit-animation-delay: 0.25s;
+            animation-delay: 0.25s;
+        }
+
+        .lr-loading-screen-overlay .load-dot:nth-child(2) {
+            -webkit-animation-delay: 0.5s;
+            animation-delay: 0.5s;
+        }
+
+        .lr-loading-screen-overlay .load-dot:nth-child(1) {
+            -webkit-animation-delay: 0.75s;
+            animation-delay: 0.75s;
+        }
+
+@-webkit-keyframes shapes {
+    0% {
+        -webkit-transform: translatey(-5px);
+        transform: translatey(-5px);
+    }
+
+    50% {
+        -webkit-transform: translatey(5px);
+        transform: translatey(5px);
+        background: #00427c;
+    }
+
+    100% {
+        -webkit-transform: translatey(-5px);
+        transform: translatey(-5px);
+    }
+}
+
+@keyframes shapes {
+    0% {
+        -webkit-transform: translatey(-5px);
+        transform: translatey(-5px);
+    }
+
+    50% {
+        -webkit-transform: translatey(5px);
+        transform: translatey(5px);
+        background: #00427c;
+    }
+
+    100% {
+        -webkit-transform: translatey(-5px);
+        transform: translatey(-5px);
+    }
+}
+</style>
