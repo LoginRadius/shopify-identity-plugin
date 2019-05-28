@@ -213,7 +213,7 @@ function getParameterByName(name) {
 
 function exchangeMultipassToken(lrtoken, handle) {
 
-  var url = "https://cloud-api.loginradius.com/sso/shopify/api/token?apikey=" + raasoption.apiKey + "&store=" + lrshopifystore + "&access_token= " + lrtoken
+  var url = "https://cloud-api.loginradius.com/sso/shopify/api/token?apikey=" + raasoption.apiKey + "&store=" + lrshopifystore + "&access_token=" + lrtoken
   if (getParameterByName("checkout_url")) {
     url = url + "&return_url=" + getParameterByName("checkout_url");
   }
