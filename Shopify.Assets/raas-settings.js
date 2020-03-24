@@ -233,7 +233,11 @@ console.log(response);
 
 };
 
+LRObject.util.ready(function () {
 
+  LRObject.init("ssoLogin", ssologin_options);
+
+});
 
 
 //Login
