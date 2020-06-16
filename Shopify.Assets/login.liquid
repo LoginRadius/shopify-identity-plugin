@@ -1,8 +1,4 @@
-{{ '//code.jquery.com/jquery-latest.min.js' | script_tag }}
-
-
-
-  <div id="lr-raas-message"></div>
+<div id="lr-raas-message"></div>
 
 
   <div id="no-email-container">
@@ -48,8 +44,8 @@
 
       </script>
 
-      <a href="javascript:void(0)" id="lr-raas-forgot-password">Forgot password?</a>
-      <a href="./register">Create Account</a>
+      <a href="javascript:void(0)" id="lr-raas-forgot-password">Forgot password</a>
+      <a href="./register" id="lr-raas-user-register">Create Account</a>
 
   </div>
 
@@ -64,7 +60,7 @@
 </script>
 
       <a href="javascript:void(0)" id="lr-raas-login-link">Login</a>
-      <a href="./register">Create Account</a>
+      <a href="./register" id="lr-raas-user-register">Create Account</a>
 
     </div>
 
@@ -87,26 +83,16 @@
 
   });
 
-
-    jQuery("#lr-raas-login-link").click(function(){
+  jQuery("#lr-raas-login-link").click(function(){
   	$("#lr-raas-login").show();
     $("#lr-social-traditional-login").show();
     $("#lr-raas-forgotpassword").hide();
 
   });
-
-
-
-  // LoginRadiusSSO.init("sso-demo");
-
-
-  // LoginRadiusSSO.login(window.location.href);
-
-  var isLoginPage = true;
 </script>
 
 
-  {% if customer %}
+{% if customer %}
 <script type="text/javascript">
 window.location.href = "/";
   </script>
@@ -114,18 +100,8 @@ window.location.href = "/";
 
     <script>
   		$(document).ready(function () {
-          $("#no-email-container").hide();
-          console.log('hide');
-          if(!window.isLoginPage){
-          // LoginRadiusSSO.init("sso-demo");
-             LRObject.util.jsonpCall('//' + raasoption.appName + '.hub.loginradius.com/ssologin/login', function (data) {
-                if (data.isauthenticated) {
-                    window.location.href = '/account/login';
-                }
-            });
-          }
+          $("#no-email-container").hide();                 
           });
-
   </script>
   {% endif %}
 

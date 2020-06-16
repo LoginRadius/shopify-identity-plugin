@@ -5,13 +5,14 @@
 /*// Form templates*/
 /*// Removing this will remove all the form styling*/
 form[name*="loginradius-"] {
-  width: 100%;
+  width: 85%;
   display: inline-block;
   margin-bottom: 15px;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  margin-left: 55px;
 }
 
 form[name*="loginradius-"] > div {
@@ -53,6 +54,7 @@ color:#00FF00;
   border-radius: 5px;
   border: 1px solid #29d;
   color: #29d;
+  margin-left: 55px;
 }
 
 form[name*="loginradius-"] input[type="text"], form[name*="loginradius-"] input[type="email"], form[name*="loginradius-"] input[type="password"], form[name*="loginradius-"] input[type="date"], form[name*="loginradius-"] input select {
@@ -71,16 +73,66 @@ form[name*="loginradius-"] input[type="text"], form[name*="loginradius-"] input[
 form[name*="loginradius-"] input[type="text"]:focus, form[name*="loginradius-"] input[type="email"]:focus, form[name*="loginradius-"] input[type="password"]:focus, form[name*="loginradius-"] input[type="date"]:focus, form[name*="loginradius-"] input select:focus {
   border: 1px solid #00b0f0;
 }
-form[name*="loginradius-"] input[type="submit"] {
+form[name*="loginradius-"] input[type="submit"],
+form[name*="loginradius-"] input[type="button"]{
   padding: 8px 20px;
   background: #2299dd;
   color: #fff;
   border-radius: 2px;
   cursor: pointer;
   border: none;
+  margin-left: 2px;
 }
-form[name*="loginradius-"] input[type="submit"]:hover {
+form[name*="loginradius-"] input[type="submit"]:hover,
+form[name*="loginradius-"] input[type="button"]:hover,
+#lr-raas-forgot-password:hover,
+#lr-raas-login-link:hover,
+#lr-raas-user-register:hover{
   background: #00b0f0;
+}
+
+
+#lr-raas-login-link{
+    background-image: none;
+    background: #1979c3;
+    border: 1px solid #1979c3;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    padding: 7px 10px;  
+    margin-left: 56px;
+}
+
+#lr-raas-forgot-password{
+    background-image: none;
+    background: #1979c3;
+    border: 1px solid #1979c3;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    padding: 7px 10px;  
+    margin-left: 56px;
+}
+
+
+#lr-raas-user-register{
+    background-image: none;
+    background: #1979c3;
+    border: 1px solid #1979c3;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    padding: 7px 10px;  
+    margin-left: 6px;
+}
+input#loginradius-login-stayLogin {
+    margin: 0px 5px;
 }
 form[name*="loginradius-"] select {
   -webkit-appearance: none;
@@ -133,8 +185,8 @@ form[name*="loginradius-"] .recaptcha_widget .recaptcha_input {
 /*// =============================================================*/
 /*// =============================================================*/
 .lr-sl-shaded-brick-frame {
-/*   max-width: 280px; */
   margin: 0 auto;
+  width: 85%;
   font-size: 14px;
   line-height: 20px;
   font-size: 0.875rem;
@@ -143,6 +195,7 @@ form[name*="loginradius-"] .recaptcha_widget .recaptcha_input {
   font-weight: 400;
   color: #fff;
   text-align: center;
+  margin-left: 55px;
 }
 .lr-sl-shaded-brick-frame .lr-sl-shaded-brick-button {
   display: inline-block;
